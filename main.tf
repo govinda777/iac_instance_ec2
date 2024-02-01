@@ -28,3 +28,4 @@ resource "aws_instance" "example" {
     Name = "MinhaInstanciaEC2lll"
   }
 }
+
