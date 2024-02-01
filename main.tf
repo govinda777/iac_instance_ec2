@@ -1,6 +1,6 @@
-# provider "aws" {
-#   region = "us-west-2"  # Substitua pela região desejada
-# }
+provider "aws" {
+  region = "us-west-2"  # Substitua pela região desejada
+}
 
 # data "aws_ami" "latest_amazon_linux" {
 #   most_recent = true
