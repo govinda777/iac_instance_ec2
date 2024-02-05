@@ -9,3 +9,8 @@ terraform plan
 
 terraform apply
 
+## Pipeline
+
+1 - Suba o Jenkins
+
+
