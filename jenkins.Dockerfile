@@ -1,20 +1,23 @@
-# Usar a imagem oficial do Jenkins
 FROM jenkins/jenkins:lts
 
-# O usuário root é necessário para instalar plugins e fazer outras configurações
 USER root
 
-# Instalar o plugin do GitHub
-RUN jenkins-plugin-cli --plugins github
-RUN jenkins-plugin-cli --plugins kubernetes-cli:1.12.1
-RUN jenkins-plugin-cli --plugins kubernetes-credentials:0.11
-RUN jenkins-plugin-cli --plugins kubernetes-credentials-provider:1.258.v95949f923a_a_e
+# Instalar plugins do Jenkins
+RUN jenkins-plugin-cli --plugins github \
+    kubernetes-cli:1.12.1 \
+    kubernetes-credentials:0.11 \
+    kubernetes-credentials-provider:1.258.v95949f923a_a_e
 
+# Baixar e instalar o kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl" \
+    && chmod +x ./kubectl \
+    && mv ./kubectl /usr/local/bin/kubectl
 
-# Mudar para o usuário Jenkins para segurança
+# Criar diretório .kube para armazenar o config
+RUN mkdir /var/jenkins_home/.kube
+
+# Mudar de volta para o usuário Jenkins
 USER jenkins
 
-# Expor a porta 8080 para acesso ao servidor web e a porta 50000 para agentes Jenkins
+# Expor as portas padrão do Jenkins
 EXPOSE 8080 50000
-
-# O ponto de entrada padrão da imagem Jenkins inicia o servidor
