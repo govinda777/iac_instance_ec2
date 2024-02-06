@@ -6,6 +6,10 @@ USER root
 
 # Instalar o plugin do GitHub
 RUN jenkins-plugin-cli --plugins github
+RUN jenkins-plugin-cli --plugins kubernetes-cli:1.12.1
+RUN jenkins-plugin-cli --plugins kubernetes-credentials:0.11
+RUN jenkins-plugin-cli --plugins kubernetes-credentials-provider:1.258.v95949f923a_a_e
+
 
 # Mudar para o usuário Jenkins para segurança
 USER jenkins

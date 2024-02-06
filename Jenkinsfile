@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        KUBECONFIG = credentials('minikube-kubeconfig')
+    }
+
     stages {
         stage('Download Repositories') {
             steps {
