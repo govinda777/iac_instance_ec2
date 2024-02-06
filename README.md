@@ -18,9 +18,7 @@ docker build -t jenkins-local -f jenkins.Dockerfile .
 2 - Pare o Jenkins
 
 docker stop jenkins-local
-6f75c202b766
 
-docker rm jenkins-local
 
 
 3 - Suba o Jenkins
@@ -37,7 +35,7 @@ docker run -d -p 8080:8080 -p 50000:50000 \
   -v /Users/gosouza/.minikube/ca.crt:/var/jenkins_home/.kube/ca.crt \
   -v /Users/gosouza/.minikube/profiles/flux/client.crt:/var/jenkins_home/.kube/client.crt \
   -v /Users/gosouza/.minikube/profiles/flux/client.key:/var/jenkins_home/.kube/client.key \
-  --name jenkins-local jenkins/jenkins:lts
+  --name jenkins-local jenkins-local
 
 docker exec -it jenkins-local bash
 
