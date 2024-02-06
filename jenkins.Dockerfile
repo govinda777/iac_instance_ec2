@@ -8,13 +8,20 @@ RUN jenkins-plugin-cli --plugins github \
     kubernetes-credentials:0.11 \
     kubernetes-credentials-provider:1.258.v95949f923a_a_e
 
-# Baixar e instalar o kubectl
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl" \
-    && chmod +x ./kubectl \
-    && mv ./kubectl /usr/local/bin/kubectl
+# Instalar dependências necessárias, se houver
+RUN apt-get update && apt-get install -y apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
 
-# Criar diretório .kube para armazenar o config
-RUN mkdir /var/jenkins_home/.kube
+# Baixar e instalar o kubectl
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
+    apt-get update && apt-get install -y kubectl
+
+# Limpar cache do APT
+RUN apt-get clean
 
 # Mudar de volta para o usuário Jenkins
 USER jenkins
