@@ -20,13 +20,11 @@ pipeline {
                     // Verificando se os diretórios existem
                     echo 'Checking for directories...'
                     sh '''
-                    if [ ! -d "iac_instance_ec2" ]; then
-                        echo "iac_instance_ec2 directory does not exist."
+                    if [ ! -d "iac_instance_ec2" ] || [ ! -d "demo-tf-controller" ]; then
+                        echo "One or more directories do not exist."
                         exit 1
-                    fi
-                    if [ ! -d "demo-tf-controller" ]; then
-                        echo "demo-tf-controller directory does not exist."
-                        exit 1
+                    else
+                        echo "Both directories exist."
                     fi
                     '''
                 }
