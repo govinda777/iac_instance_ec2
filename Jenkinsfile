@@ -19,7 +19,7 @@ pipeline {
                 script {
                     echo 'Installing kubectl...'
                     
-                    sh 'sudo apt-get install -y kubectl'
+                    sh 'apt-get install -y kubectl'
                 }
             }
         }
