@@ -5,8 +5,8 @@ pipeline {
         stage('Download Repositories') {
             steps {
                 script {
-                    chmod +x ../jenkins/check-changes-and-execute-pipeline.sh
-                    sh '../jenkins/check-changes-and-execute-pipeline.sh'
+                    chmod +x ../jenkins/step_Download_Repositories.sh
+                    sh '../jenkins/step_Download_Repositories.sh'
                 }
             }
         }
