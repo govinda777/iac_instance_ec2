@@ -2,26 +2,33 @@ pipeline {
     agent any
 
     stages {
-        stage('Download Artifact') {
+        stage('Download Repositories') {
             steps {
                 script {
                     // Clonando o primeiro repositório
                     echo 'Cloning iac_instance_ec2 repository...'
-                    git branch: 'main',
-                        credentialsId: 'JenkinsGitHubApp',
-                        url: 'https://github.com/govinda777/iac_instance_ec2.git',
-                        targetDir: 'iac_instance_ec2'
+                    sh 'rm -rf iac_instance_ec2 && git clone https://github.com/govinda777/iac_instance_ec2.git iac_instance_ec2'
 
                     // Clonando o segundo repositório
                     echo 'Cloning demo-tf-controller repository...'
-                    git branch: 'main',
-                        credentialsId: 'JenkinsGitHubApp',
-                        url: 'https://github.com/govinda777/demo-tf-controller.git',
-                        targetDir: 'demo-tf-controller'
+                    sh 'rm -rf demo-tf-controller && git clone https://github.com/govinda777/demo-tf-controller.git demo-tf-controller'
 
                     // Listando diretórios
                     echo 'Listing cloned directories...'
                     sh 'ls -l'
+
+                    // Verificando se os diretórios existem
+                    echo 'Checking for directories...'
+                    sh '''
+                    if [ ! -d "iac_instance_ec2" ]; then
+                        echo "iac_instance_ec2 directory does not exist."
+                        exit 1
+                    fi
+                    if [ ! -d "demo-tf-controller" ]; then
+                        echo "demo-tf-controller directory does not exist."
+                        exit 1
+                    fi
+                    '''
                 }
             }
         }
