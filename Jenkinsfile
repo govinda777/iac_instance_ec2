@@ -6,7 +6,8 @@ pipeline {
             steps {
                 script {
                     // Substitua com os comandos para baixar os artefatos necessários
-                    // Por exemplo: sh 'wget -O artifact.zip http://artifacts-server.com/artifact.zip'
+                    echo 'Downloading artifact...'
+                    // sh 'wget -O artifact.zip http://artifacts-server.com/artifact.zip'
                 }
             }
         }
@@ -14,7 +15,8 @@ pipeline {
             steps {
                 script {
                     // Substitua com os comandos para gerar o plano Terraform
-                    // Por exemplo: sh 'terraform plan -out=tfplan'
+                    echo 'Generating Terraform plan...'
+                    // sh 'terraform plan -out=tfplan'
                 }
             }
         }
@@ -22,7 +24,7 @@ pipeline {
             steps {
                 script {
                     // Substitua com comandos para salvar o plano no repositório, como um commit
-                    // Por exemplo:
+                    echo 'Saving plan in the repo...'
                     // sh '''
                     // git add tfplan
                     // git commit -m "Add Terraform plan"
@@ -35,7 +37,8 @@ pipeline {
             steps {
                 script {
                     // Substitua com os comandos para executar as políticas
-                    // Por exemplo: sh 'checkov -d .'
+                    echo 'Executing policies...'
+                    // sh 'checkov -d .'
                 }
             }
         }
@@ -43,7 +46,8 @@ pipeline {
             steps {
                 script {
                     // Substitua com os comandos para aplicar as mudanças no AWS
-                    // Por exemplo: sh 'terraform apply tfplan'
+                    echo 'Applying changes in AWS...'
+                    // sh 'terraform apply tfplan'
                 }
             }
         }
@@ -51,17 +55,24 @@ pipeline {
             steps {
                 script {
                     // Substitua com os comandos para salvar o estado do Terraform no S3
-                    // Por exemplo: sh 'terraform state push'
+                    echo 'Saving Terraform state in S3...'
+                    // sh 'terraform state push'
                 }
             }
         }
     }
     post {
         success {
-            // Ações a executar após a pipeline ser executada com sucesso
+            script {
+                echo 'Success!'
+                // Coloque aqui os comandos para executar se a pipeline for bem-sucedida
+            }
         }
         failure {
-            // Ações a executar se a pipeline falhar
+            script {
+                echo 'Failure!'
+                // Coloque aqui os comandos para executar se a pipeline falhar
+            }
         }
     }
 }
