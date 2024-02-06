@@ -5,9 +5,23 @@ pipeline {
         stage('Download Artifact') {
             steps {
                 script {
-                    // Substitua com os comandos para baixar os artefatos necessários
-                    echo 'Downloading artifact...'
-                    // sh 'wget -O artifact.zip http://artifacts-server.com/artifact.zip'
+                    // Clonando o primeiro repositório
+                    echo 'Cloning iac_instance_ec2 repository...'
+                    git branch: 'main',
+                        credentialsId: 'JenkinsGitHubApp',
+                        url: 'https://github.com/govinda777/iac_instance_ec2.git',
+                        targetDir: 'iac_instance_ec2'
+
+                    // Clonando o segundo repositório
+                    echo 'Cloning demo-tf-controller repository...'
+                    git branch: 'main',
+                        credentialsId: 'JenkinsGitHubApp',
+                        url: 'https://github.com/govinda777/demo-tf-controller.git',
+                        targetDir: 'demo-tf-controller'
+
+                    // Listando diretórios
+                    echo 'Listing cloned directories...'
+                    sh 'ls -l'
                 }
             }
         }
