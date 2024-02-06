@@ -4,8 +4,10 @@ echo 'call TF Controller to get plan'
 
 echo 'Obtendo o ID do plano do TF Controller...'
 
-# Executar o comando para obter o ID do plano
-PLAN_ID=$(kubectl get terraform iac-instance-ec2 -n flux-system -o jsonpath='{.spec.approvePlan}')
+OUTPUT=$(kubectl get terraform -n flux-system)
+
+# Extrair o ID do plano usando grep e awk
+PLAN_ID=$(echo "$OUTPUT" | grep 'iac-instance-ec2' | awk -F 'approvePlan: "' '{print $2}' | awk -F '"' '{print $1}')
 
 echo "ID do Plano: $PLAN_ID"
 
