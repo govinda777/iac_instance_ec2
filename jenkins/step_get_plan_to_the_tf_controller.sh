@@ -2,12 +2,6 @@
 
 echo 'call TF Controller to get plan'
 
-echo 'Instalando o kubectl...'
-
-export KUBECONFIG=./kubeconfig
-
-echo $KUBECONFIG
-
 echo 'Obtendo o ID do plano do TF Controller...'
 
 OUTPUT=$(kubectl get terraform -n flux-system)
