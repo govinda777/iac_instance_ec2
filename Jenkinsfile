@@ -18,15 +18,6 @@ pipeline {
                 }
             }
         }
-        stage('Install kubectl') {
-            steps {
-                script {
-                    echo 'Installing kubectl...'
-                    
-                    sh 'apt-get install -y kubectl'
-                }
-            }
-        }
         stage('Get Plan to the TF CONTROLLER') {
             steps {
                 script {
