@@ -25,7 +25,7 @@ resource "aws_instance" "example" {
   subnet_id = "subnet-a48fb48f"  # Substitua pelo ID da sua subnet
 
   tags = {
-    Name = "MinhaInstanciaEC2lll-Test1"
+    Name = "MinhaInstanciaEC2lll-Test2"
   }
 }
 
