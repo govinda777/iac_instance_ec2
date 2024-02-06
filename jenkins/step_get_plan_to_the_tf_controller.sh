@@ -2,6 +2,10 @@
 
 echo 'call TF Controller to get plan'
 
+echo "Debug: PATH is $PATH"
+which kubectl
+kubectl version --client
+
 echo 'Obtendo o ID do plano do TF Controller...'
 
 OUTPUT=$(kubectl get terraform -n flux-system)
