@@ -5,28 +5,8 @@ pipeline {
         stage('Download Repositories') {
             steps {
                 script {
-                    // Clonando o primeiro repositório
-                    echo 'Cloning iac_instance_ec2 repository...'
-                    sh 'rm -rf iac_instance_ec2 && git clone https://github.com/govinda777/iac_instance_ec2.git iac_instance_ec2'
-
-                    // Clonando o segundo repositório
-                    echo 'Cloning demo-tf-controller repository...'
-                    sh 'rm -rf demo-tf-controller && git clone https://github.com/govinda777/demo-tf-controller.git demo-tf-controller'
-
-                    // Listando diretórios e seus conteúdos de forma recursiva
-                    echo 'Listing cloned directories and their contents recursively...'
-                    sh 'ls -lR'
-
-                    // Verificando se os diretórios existem
-                    echo 'Checking for directories...'
-                    sh '''
-                    if [ ! -d "iac_instance_ec2" ] || [ ! -d "demo-tf-controller" ]; then
-                        echo "One or more directories do not exist."
-                        exit 1
-                    else
-                        echo "Both directories exist."
-                    fi
-                    '''
+                    chmod +x ../jenkins/check-changes-and-execute-pipeline.sh
+                    sh '../jenkins/check-changes-and-execute-pipeline.sh'
                 }
             }
         }
