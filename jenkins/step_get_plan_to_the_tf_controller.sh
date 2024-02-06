@@ -6,6 +6,14 @@ echo "Debug: PATH is $PATH"
 which kubectl
 kubectl version --client
 
+echo 'kubectl config view...'
+
+export KUBECONFIG=/var/jenkins_home/.kube/config
+
+kubectl config view
+
+kubectl get nodes
+
 echo 'Obtendo o ID do plano do TF Controller...'
 
 OUTPUT=$(kubectl get terraform -n flux-system)

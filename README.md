@@ -11,6 +11,8 @@ terraform apply
 
 ## Pipeline
 
+chmod +x build.sh
+
 1 - Suba o Jenkins
 
 docker build -t jenkins-local -f jenkins.Dockerfile .
