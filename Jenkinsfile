@@ -13,9 +13,9 @@ pipeline {
                     echo 'Cloning demo-tf-controller repository...'
                     sh 'rm -rf demo-tf-controller && git clone https://github.com/govinda777/demo-tf-controller.git demo-tf-controller'
 
-                    // Listando diretórios
-                    echo 'Listing cloned directories...'
-                    sh 'ls -l'
+                    // Listando diretórios e seus conteúdos de forma recursiva
+                    echo 'Listing cloned directories and their contents recursively...'
+                    sh 'ls -lR'
 
                     // Verificando se os diretórios existem
                     echo 'Checking for directories...'
