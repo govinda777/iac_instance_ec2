@@ -7,8 +7,8 @@ pipeline {
                 script {
                     // Dando permissão de execução ao script e depois executando-o
                     sh '''
-                    chmod +x ../jenkins/step_Download_Repositories.sh
-                    ../jenkins/step_Download_Repositories.sh
+                    chmod +x ./jenkins/step_Download_Repositories.sh
+                    ./jenkins/step_Download_Repositories.sh
                     '''
                 }
             }
