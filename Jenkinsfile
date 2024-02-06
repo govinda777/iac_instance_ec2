@@ -5,6 +5,7 @@ pipeline {
         stage('Download Repositories') {
             steps {
                 script {
+                    echo 'Download Repositories...'
                     // Dando permissão de execução ao script e depois executando-o
                     sh '''
                     chmod +x ./jenkins/step_Download_Repositories.sh
@@ -16,9 +17,13 @@ pipeline {
         stage('Get Plan to the TF CONTROLLER') {
             steps {
                 script {
-                    // Substitua com os comandos para gerar o plano Terraform
-                    echo 'Generating Terraform plan...'
-                    // sh 'terraform plan -out=tfplan'
+
+                    echo 'Get Plan to the TF CONTROLLER...'
+                    // Dando permissão de execução ao script e depois executando-o
+                    sh '''
+                    chmod +x ./jenkins/step_get_plan_to_the_tf_controller.sh
+                    ./jenkins/step_get_plan_to_the_tf_controller.sh
+                    '''
                 }
             }
         }
