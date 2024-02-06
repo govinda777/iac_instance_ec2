@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  jenkins:
+    image: jenkins-local
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - ./kubeconfig:/var/jenkins_home/.kube/config
+      - /Users/gosouza/.minikube/ca.crt:/var/jenkins_home/.kube/ca.crt
+      - /Users/gosouza/.minikube/profiles/flux/client.crt:/var/jenkins_home/.kube/client.crt
+      - /Users/gosouza/.minikube/profiles/flux/client.key:/var/jenkins_home/.kube/client.key
+    container_name: jenkins-local
+
+volumes:
+  jenkins_home:
