@@ -15,6 +15,16 @@ terraform apply
 
 docker build -t jenkins-local -f jenkins.Dockerfile .
 
+2 - Pare o Jenkins
+
+docker stop jenkins-local
+6f75c202b766
+
+docker rm jenkins-local
+
+
+3 - Suba o Jenkins
+
 > Sem cópia de certificado
 
 docker run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins-local
@@ -31,7 +41,9 @@ docker run -d -p 8080:8080 -p 50000:50000 \
 
 docker exec -it jenkins-local bash
 
-2 - 
+4 - Validar se o Jenkins está se comunicando com o Minikube
+
+
 
 
 https://a7c4-2804-7f0-6883-dbae-58cc-889f-c761-c862.ngrok-free.app/
