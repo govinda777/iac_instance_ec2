@@ -9,13 +9,14 @@ if [ $(stat -f "%u" $CA_CERT) -ne 1000 ] || [ $(stat -f "%u" $CLIENT_CERT) -ne 1
     sudo chown 1000:1000 $CA_CERT
     sudo chown 1000:1000 $CLIENT_CERT
     sudo chown 1000:1000 $CLIENT_KEY
-fi
 
-# Ajusta as permissões dos arquivos
-echo "Alterando as permissões dos arquivos de certificado..."
-chmod 644 $CA_CERT
-chmod 644 $CLIENT_CERT
-chmod 600 $CLIENT_KEY
+    # Ajusta as permissões dos arquivos
+    echo "Alterando as permissões dos arquivos de certificado..."
+    chmod 644 $CA_CERT
+    chmod 644 $CLIENT_CERT
+    chmod 600 $CLIENT_KEY
+
+fi
 
 docker-compose down
 
@@ -36,12 +37,6 @@ if [ -n "$container_id" ]; then
     docker stop $container_id
     docker rm -f $container_id
 fi
-
-echo "Alterando as permissões dos arquivos de configuração do Kubernetes..."
-
-sudo chown 1000:1000 /Users/gosouza/.minikube/ca.crt
-sudo chown 1000:1000 /Users/gosouza/.minikube/profiles/flux/client.crt
-sudo chown 1000:1000 /Users/gosouza/.minikube/profiles/flux/client.key
 
 # Executar um novo contêiner Jenkins
 echo "Iniciando um novo contêiner Jenkins..."
