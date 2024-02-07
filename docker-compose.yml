@@ -1,16 +1,18 @@
 version: '3.8'
 services:
   jenkins:
-    image: jenkins-local
+    image: jenkins/jenkins:lts
     ports:
       - "8080:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - ./kubeconfig:/var/jenkins_home/.kube/config
-      - /Users/gosouza/.minikube/ca.crt:/var/jenkins_home/.kube/ca.crt
-      - /Users/gosouza/.minikube/profiles/flux/client.crt:/var/jenkins_home/.kube/client.crt
-      - /Users/gosouza/.minikube/profiles/flux/client.key:/var/jenkins_home/.kube/client.key
+      - ./jenkins.yaml:/var/jenkins_home/casc_configs/jenkins.yaml
+      - ./gitHubApp.key:/var/jenkins_home/gitHubApp.key
+      # Monte os certificados do Kubernetes aqui, se necessário
+    environment:
+      CASC_JENKINS_CONFIG: /var/jenkins_home/casc_configs/jenkins.yaml
+      GITHUB_APP_KEY: ${GITHUB_APP_KEY_CONTENT}
     container_name: jenkins-local
 
 volumes:

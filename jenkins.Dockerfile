@@ -6,7 +6,9 @@ USER root
 RUN jenkins-plugin-cli --plugins github \
     kubernetes-cli:1.12.1 \
     kubernetes-credentials:0.11 \
-    kubernetes-credentials-provider:1.258.v95949f923a_a_e
+    kubernetes-credentials-provider:1.258.v95949f923a_a_e \
+    configuration-as-code
+
 
 # Instalar dependências necessárias, se houver
 RUN apt-get update && apt-get install -y apt-transport-https \

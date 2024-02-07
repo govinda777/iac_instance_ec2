@@ -1,0 +1,36 @@
+jenkins:
+  systemMessage: "Configuração do Jenkins gerenciada como código"
+  # Configurações adicionais do Jenkins podem ser adicionadas aqui
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - gitHubApp:
+              scope: GLOBAL
+              id: "github-app-id"
+              description: "GitHub App Credential"
+              appID: "818429"
+              privateKey: "${GITHUB_APP_KEY}"
+
+jobs:
+  - script: >
+      pipelineJob('IAC_INSTANCE_EC2') {
+        triggers {
+          scm('H/2 * * * *') // Poll SCM a cada 2 horas, ajuste conforme necessário
+        }
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('https://github.com/govinda777/iac_instance_ec2')
+                  credentials('github-app-id') // Use o ID de credenciais configurado acima
+                }
+                branches('*/main')
+                scriptPath('Jenkinsfile')
+              }
+            }
+          }
+        }
+      }
